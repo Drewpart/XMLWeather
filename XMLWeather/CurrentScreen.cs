@@ -22,14 +22,36 @@ namespace XMLWeather
             cityOutput.Text = Form1.days[0].location;
             tempLabel.Text = Math.Round(Convert.ToDouble(Form1.days[0].currentTemp)).ToString("##");
             minOutput.Text = Math.Round(Convert.ToDouble(Form1.days[0].tempLow)).ToString("##");
-            maxOutput.Text = Math.Round(Convert.ToDouble(Form1.days[0].tempHigh)).ToString("##");
+
+            double max = Math.Round(Convert.ToDouble(Form1.days[0].tempHigh));
+
+            if (max > 0)
+            {
+                maxOutput.Text = max.ToString("##");
+            }
+            else
+            {
+                maxOutput.Text = "0";
+            }
 
             int conditionCode = Convert.ToInt32(Form1.days[0].condition);
 
-            if (conditionCode >=200 && conditionCode < 600) //rain
+            if (conditionCode >= 200 && conditionCode < 600) //rain
             {
                 //show appropriate image here
-                pictureBox2 = 
+                pictureBox2.Image = Properties.Resources.rainCloud;
+            }
+            else if (conditionCode >= 600 && conditionCode < 800)  //snow
+            {
+                pictureBox2.Image = Properties.Resources.snow;
+            }
+            else if (conditionCode == 800)
+            {
+                pictureBox2.Image = Properties.Resources.clearSkyy;
+            }
+            else if (conditionCode >800)
+            {
+                pictureBox2.Image = Properties.Resources.cloudy;
             }
         }
 
